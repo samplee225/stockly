@@ -24,8 +24,8 @@ export const Navigation: React.FC<NavigationProps> = ({
 
   return (
     <>
-      {/* Top Navigation Bar (Desktop & Mobile) */}
-      <header className="sticky top-0 z-40 w-full bg-transparent transition-colors">
+      {/* Top Glass Navigation Bar (Desktop & Mobile) */}
+      <header className="sticky top-0 z-40 w-full glass-panel border-b border-black/[0.05] dark:border-white/[0.08] transition-colors">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 h-15 sm:h-16 flex items-center justify-between">
           {/* Logo / App Title */}
           <div className="flex items-center gap-2.5 sm:gap-3">
