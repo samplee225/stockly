@@ -95,9 +95,9 @@ export const TransactionsPage: React.FC<TransactionsPageProps> = ({
               </span>
             </div>
 
-            <div className="flex flex-wrap items-center gap-2 self-start sm:self-auto">
+            <div className="flex items-center gap-1.5 sm:gap-2 max-w-full overflow-x-auto pb-0.5 self-start sm:self-auto scrollbar-none">
               {/* Date Range Filter Tabs */}
-              <div className="flex items-center gap-1 p-1 bg-black/[0.04] dark:bg-white/[0.05] rounded-xl border border-black/[0.04] dark:border-white/[0.08]">
+              <div className="flex items-center gap-1 p-1 bg-black/[0.04] dark:bg-white/[0.05] rounded-xl border border-black/[0.04] dark:border-white/[0.08] shrink-0">
                 {(['ALL', 'TODAY', 'WEEK', 'MONTH'] as const).map((r) => {
                   const labels: Record<DateFilterRange, string> = {
                     ALL: 'All Dates',
@@ -123,7 +123,7 @@ export const TransactionsPage: React.FC<TransactionsPageProps> = ({
               </div>
 
               {/* Filter Tabs: ALL / IN / OUT */}
-              <div className="flex items-center gap-1 p-1 bg-black/[0.04] dark:bg-white/[0.05] rounded-xl border border-black/[0.04] dark:border-white/[0.08]">
+              <div className="flex items-center gap-1 p-1 bg-black/[0.04] dark:bg-white/[0.05] rounded-xl border border-black/[0.04] dark:border-white/[0.08] shrink-0">
                 <button
                   type="button"
                   onClick={() => setFilterType('ALL')}

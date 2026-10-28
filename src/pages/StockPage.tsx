@@ -28,7 +28,20 @@ export const StockPage: React.FC<StockPageProps> = ({
   onRetry,
 }) => {
   const [searchQuery, setSearchQuery] = useState('');
-  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+  const [viewMode, setViewMode] = useState<'grid' | 'list'>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('stockflow_view_mode');
+      if (saved === 'grid' || saved === 'list') return saved;
+    }
+    return 'list'; // Default to list view as requested
+  });
+
+  const handleSetViewMode = (mode: 'grid' | 'list') => {
+    setViewMode(mode);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('stockflow_view_mode', mode);
+    }
+  };
 
   const filteredProducts = useMemo(() => {
     if (!searchQuery.trim()) return products;
@@ -41,9 +54,9 @@ export const StockPage: React.FC<StockPageProps> = ({
   return (
     <div className="space-y-4 sm:space-y-6 max-w-5xl mx-auto">
       {/* Top Header: Title and Add Product Button Side by Side */}
-      <div className="flex items-center justify-between gap-3">
+      <div className="flex items-center justify-between gap-2.5 sm:gap-3">
         <div className="min-w-0">
-          <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white leading-tight">
+          <h1 className="text-xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white leading-tight">
             Stock
           </h1>
           <p className="text-xs text-slate-500 dark:text-neutral-400 mt-0.5 font-medium">
@@ -54,7 +67,7 @@ export const StockPage: React.FC<StockPageProps> = ({
         {/* Primary Add Stock Action Button (Side by side with Title) */}
         <button
           onClick={onAddProduct}
-          className="inline-flex items-center justify-center gap-1.5 sm:gap-2 px-3.5 sm:px-5 py-2.5 rounded-2xl bg-blue-600 hover:bg-blue-500 active:scale-[0.98] text-white text-xs sm:text-sm font-semibold shadow-lg shadow-blue-500/25 transition-all cursor-pointer shrink-0 border border-blue-400/30"
+          className="inline-flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-5 py-2 sm:py-2.5 rounded-2xl bg-blue-600 hover:bg-blue-500 active:scale-[0.98] text-white text-xs sm:text-sm font-semibold shadow-lg shadow-blue-500/25 transition-all cursor-pointer shrink-0 border border-blue-400/30"
           aria-label="Add new product"
         >
           <Plus className="w-4 h-4 stroke-[2.5]" />
@@ -63,23 +76,23 @@ export const StockPage: React.FC<StockPageProps> = ({
       </div>
 
       {/* Search Input Bar + List/Grid View Switcher */}
-      <div className="flex items-center gap-2 sm:gap-3">
+      <div className="flex items-center gap-1.5 sm:gap-3">
         {/* Search Bar */}
-        <div className="relative flex-1 glass-panel rounded-2xl p-1 sm:p-1.5 flex items-center shadow-xs">
-          <div className="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center text-slate-400 dark:text-neutral-500 shrink-0">
+        <div className="relative flex-1 glass-panel rounded-2xl p-1 sm:p-1.5 flex items-center shadow-xs min-w-0">
+          <div className="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center text-slate-400 dark:text-neutral-500 shrink-0">
             <Search className="w-4 h-4" />
           </div>
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search products by title..."
-            className="flex-1 bg-transparent border-none text-xs sm:text-sm text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-neutral-500 focus:outline-hidden py-2"
+            placeholder="Search products..."
+            className="flex-1 bg-transparent border-none text-xs sm:text-sm text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-neutral-500 focus:outline-hidden py-1.5 sm:py-2 min-w-0"
           />
           {searchQuery && (
             <button
               onClick={() => setSearchQuery('')}
-              className="w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-slate-400 dark:text-neutral-400 hover:text-slate-700 dark:hover:text-white hover:bg-black/[0.04] dark:hover:bg-white/[0.08] transition-colors mr-1 cursor-pointer"
+              className="w-6 h-6 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-slate-400 dark:text-neutral-400 hover:text-slate-700 dark:hover:text-white hover:bg-black/[0.04] dark:hover:bg-white/[0.08] transition-colors mr-1 cursor-pointer shrink-0"
               aria-label="Clear search"
             >
               <X className="w-3.5 h-3.5" />
@@ -88,10 +101,10 @@ export const StockPage: React.FC<StockPageProps> = ({
         </div>
 
         {/* Grid vs List View Segmented Switch */}
-        <div className="glass-panel p-1 rounded-2xl flex items-center gap-1 shrink-0 shadow-xs border border-black/[0.06] dark:border-white/[0.08]">
+        <div className="glass-panel p-1 rounded-2xl flex items-center gap-0.5 sm:gap-1 shrink-0 shadow-xs border border-black/[0.06] dark:border-white/[0.08]">
           <button
-            onClick={() => setViewMode('grid')}
-            className={`w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center transition-all cursor-pointer ${
+            onClick={() => handleSetViewMode('grid')}
+            className={`w-8 h-8 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center transition-all cursor-pointer ${
               viewMode === 'grid'
                 ? 'bg-blue-600 text-white shadow-md shadow-blue-600/30 font-semibold'
                 : 'text-slate-400 dark:text-neutral-500 hover:text-slate-700 dark:hover:text-white'
@@ -100,11 +113,11 @@ export const StockPage: React.FC<StockPageProps> = ({
             aria-label="Switch to Grid View"
             aria-pressed={viewMode === 'grid'}
           >
-            <LayoutGrid className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
+            <LayoutGrid className="w-4 h-4" />
           </button>
           <button
-            onClick={() => setViewMode('list')}
-            className={`w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center transition-all cursor-pointer ${
+            onClick={() => handleSetViewMode('list')}
+            className={`w-8 h-8 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center transition-all cursor-pointer ${
               viewMode === 'list'
                 ? 'bg-blue-600 text-white shadow-md shadow-blue-600/30 font-semibold'
                 : 'text-slate-400 dark:text-neutral-500 hover:text-slate-700 dark:hover:text-white'
@@ -113,7 +126,7 @@ export const StockPage: React.FC<StockPageProps> = ({
             aria-label="Switch to List View"
             aria-pressed={viewMode === 'list'}
           >
-            <List className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
+            <List className="w-4 h-4" />
           </button>
         </div>
       </div>

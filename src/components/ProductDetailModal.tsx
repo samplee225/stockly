@@ -14,7 +14,6 @@ import {
   CheckCircle2,
   AlertTriangle,
   XCircle,
-  ExternalLink,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 

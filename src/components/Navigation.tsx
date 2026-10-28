@@ -20,13 +20,12 @@ export const Navigation: React.FC<NavigationProps> = ({
     { id: 'home', label: 'Home', icon: Home },
     { id: 'stock', label: 'Stock', icon: Package },
     { id: 'transactions', label: 'Movements', icon: ArrowLeftRight },
-    { id: 'settings', label: 'Settings', icon: Settings },
   ];
 
   return (
     <>
-      {/* Top Glass Navigation Bar (Desktop & Mobile) */}
-      <header className="sticky top-0 z-40 w-full glass-panel border-b border-black/[0.05] dark:border-white/[0.08] transition-colors">
+      {/* Top Navigation Bar (Desktop & Mobile) */}
+      <header className="sticky top-0 z-40 w-full bg-transparent transition-colors">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 h-15 sm:h-16 flex items-center justify-between">
           {/* Logo / App Title */}
           <div className="flex items-center gap-2.5 sm:gap-3">
@@ -36,9 +35,6 @@ export const Navigation: React.FC<NavigationProps> = ({
             <div>
               <span className="text-sm sm:text-base font-semibold tracking-tight text-slate-900 dark:text-white block leading-tight">
                 StockFlow
-              </span>
-              <span className="text-[10px] sm:text-xs text-slate-500 dark:text-neutral-400 font-normal">
-                Minimal Inventory
               </span>
             </div>
           </div>

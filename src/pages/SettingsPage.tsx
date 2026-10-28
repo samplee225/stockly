@@ -284,7 +284,7 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({
         <div className="p-3.5 rounded-2xl bg-black/[0.02] dark:bg-white/[0.03] border border-black/[0.04] dark:border-white/[0.06] text-xs text-slate-600 dark:text-neutral-300 flex items-center gap-3">
           <Smartphone className="w-5 h-5 text-blue-500 shrink-0" />
           <span>
-            Swipe <strong>Left</strong> or <strong>Right</strong> on mobile to smoothly shift pages between Home, Stock, Activity History, and Settings.
+            Swipe <strong>Left</strong> or <strong>Right</strong> on mobile to smoothly shift between Home, Stock, and Activity History.
           </span>
         </div>
       </section>

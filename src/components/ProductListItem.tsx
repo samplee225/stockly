@@ -28,8 +28,8 @@ export const ProductListItem: React.FC<ProductListItemProps> = ({
       className="glass-card rounded-2xl p-3 sm:p-3.5 flex items-center justify-between gap-3 hover:border-blue-500/40 hover:shadow-md transition-all group cursor-pointer"
     >
       {/* Product Image & Info */}
-      <div className="flex items-center gap-3 min-w-0 flex-1">
-        <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl overflow-hidden bg-slate-100 dark:bg-neutral-900 shrink-0 border border-black/[0.04] dark:border-white/[0.08] flex items-center justify-center relative">
+      <div className="flex items-center gap-2.5 sm:gap-3 min-w-0 flex-1">
+        <div className="w-11 h-11 sm:w-14 sm:h-14 rounded-2xl overflow-hidden bg-slate-100 dark:bg-neutral-900 shrink-0 border border-black/[0.04] dark:border-white/[0.08] flex items-center justify-center relative">
           {product.imageUrl && !imgError ? (
             <img
               src={product.imageUrl}
@@ -44,8 +44,8 @@ export const ProductListItem: React.FC<ProductListItemProps> = ({
         </div>
 
         <div className="min-w-0 flex-1">
-          <div className="flex items-center gap-1.5 flex-wrap sm:flex-nowrap">
-            <h3 className="font-semibold text-xs sm:text-sm text-slate-900 dark:text-white truncate max-w-[140px] sm:max-w-xs" title={product.title}>
+          <div className="flex items-center gap-1.5 min-w-0">
+            <h3 className="font-semibold text-xs sm:text-sm text-slate-900 dark:text-white truncate min-w-0 flex-1" title={product.title}>
               {product.title}
             </h3>
             <span
@@ -57,7 +57,7 @@ export const ProductListItem: React.FC<ProductListItemProps> = ({
                   : 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border-emerald-500/25'
               }`}
             >
-              {isOutOfStock ? '0 in stock' : `${product.quantity} units`}
+              {isOutOfStock ? '0 stock' : `${product.quantity} units`}
             </span>
           </div>
 
@@ -70,10 +70,10 @@ export const ProductListItem: React.FC<ProductListItemProps> = ({
       {/* Action Controls: Steppers + Edit/Delete */}
       <div
         onClick={(e) => e.stopPropagation()}
-        className="flex items-center gap-1.5 sm:gap-2 shrink-0"
+        className="flex items-center gap-1 sm:gap-2 shrink-0"
       >
         {/* Quick Stepper Buttons */}
-        <div className="flex items-center gap-1 bg-black/[0.03] dark:bg-white/[0.04] p-1 rounded-xl border border-black/[0.04] dark:border-white/[0.06]">
+        <div className="flex items-center gap-0.5 sm:gap-1 bg-black/[0.03] dark:bg-white/[0.04] p-0.5 sm:p-1 rounded-xl border border-black/[0.04] dark:border-white/[0.06]">
           <button
             onClick={(e) => {
               e.stopPropagation();
@@ -105,7 +105,7 @@ export const ProductListItem: React.FC<ProductListItemProps> = ({
             e.stopPropagation();
             onEdit(product);
           }}
-          className="w-8 h-8 rounded-xl flex items-center justify-center text-slate-400 dark:text-neutral-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-500/10 transition-colors cursor-pointer"
+          className="w-7 h-7 sm:w-8 sm:h-8 rounded-xl flex items-center justify-center text-slate-400 dark:text-neutral-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-500/10 transition-colors cursor-pointer"
           title="Edit"
           aria-label={`Edit ${product.title}`}
         >
@@ -116,7 +116,7 @@ export const ProductListItem: React.FC<ProductListItemProps> = ({
             e.stopPropagation();
             onDelete(product);
           }}
-          className="w-8 h-8 rounded-xl flex items-center justify-center text-slate-400 dark:text-neutral-400 hover:text-rose-600 dark:hover:text-rose-400 hover:bg-rose-500/10 transition-colors cursor-pointer"
+          className="w-7 h-7 sm:w-8 sm:h-8 rounded-xl flex items-center justify-center text-slate-400 dark:text-neutral-400 hover:text-rose-600 dark:hover:text-rose-400 hover:bg-rose-500/10 transition-colors cursor-pointer"
           title="Delete"
           aria-label={`Delete ${product.title}`}
         >

@@ -15,7 +15,7 @@ import { Toast, ToastMessage } from './components/Toast';
 import { useSwipeGesture } from './hooks/useSwipeGesture';
 import { motion, AnimatePresence } from 'motion/react';
 
-const PAGE_ORDER: ActivePage[] = ['home', 'stock', 'transactions', 'settings'];
+const PAGE_ORDER: ActivePage[] = ['home', 'stock', 'transactions'];
 
 export default function App() {
   const [activePage, setActivePage] = useState<ActivePage>('home');
@@ -167,6 +167,13 @@ export default function App() {
   const handlePageShift = useCallback(
     (direction: 'next' | 'prev') => {
       const currentIndex = PAGE_ORDER.indexOf(activePage);
+      if (currentIndex === -1) {
+        if (direction === 'prev') {
+          setSlideDirection('right');
+          setActivePage('transactions');
+        }
+        return;
+      }
       if (direction === 'next' && currentIndex < PAGE_ORDER.length - 1) {
         setSlideDirection('left');
         setActivePage(PAGE_ORDER[currentIndex + 1]);
@@ -210,7 +217,7 @@ export default function App() {
       />
 
       {/* Main Container - Mobile-first padding with safe-area offset */}
-      <main className="max-w-5xl mx-auto px-4 sm:px-6 pt-4 sm:pt-6 pb-32 sm:pb-24">
+      <main className="max-w-5xl mx-auto px-3 sm:px-6 pt-3 sm:pt-6 pb-28 sm:pb-24">
         <AnimatePresence mode="wait" initial={false}>
           <motion.div
             key={activePage}

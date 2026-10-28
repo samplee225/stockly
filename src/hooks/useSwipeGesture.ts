@@ -90,11 +90,13 @@ export function useSwipeGesture({
 
     // Pointer events for desktop and hybrid devices
     const onPointerDown = (e: PointerEvent) => {
+      if (e.pointerType === 'touch') return; // Handled by touch events
       if (e.pointerType === 'mouse' && e.button !== 0) return;
       startSwipe(e.clientX, e.clientY, e.target);
     };
 
     const onPointerUp = (e: PointerEvent) => {
+      if (e.pointerType === 'touch') return; // Handled by touch events
       if (e.pointerType === 'mouse' && e.button !== 0) return;
       endSwipe(e.clientX, e.clientY);
     };

@@ -251,8 +251,7 @@ export const inventoryApi = {
       throw new Error(res.message || 'Failed to fetch products from Google Sheets');
     }
 
-    // LocalStorage fallback
-    await new Promise((r) => setTimeout(r, 80)); // Micro-tick for natural async feel
+    // LocalStorage fallback - instant zero-delay read
     return getLocalProducts();
   },
 
@@ -408,7 +407,7 @@ export const inventoryApi = {
       throw new Error(res.message || 'Failed to fetch transactions from Google Sheets');
     }
 
-    await new Promise((r) => setTimeout(r, 60));
+    // Instant local read
     const txs = getLocalTransactions();
     return txs.slice(0, limit);
   },
