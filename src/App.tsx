@@ -12,6 +12,7 @@ import { TransactionModal } from './components/TransactionModal';
 import { SetupModal } from './components/SetupModal';
 import { ProductDetailModal } from './components/ProductDetailModal';
 import { Toast, ToastMessage } from './components/Toast';
+import { OfflineIndicator } from './components/OfflineIndicator';
 import { useSwipeGesture } from './hooks/useSwipeGesture';
 import { motion, AnimatePresence } from 'motion/react';
 
@@ -376,6 +377,9 @@ export default function App() {
           addToast('info', 'Database connection updated.');
         }}
       />
+
+      {/* Offline connectivity status banner */}
+      <OfflineIndicator />
 
       {/* Floating Notifications */}
       <Toast toasts={toasts} onDismiss={removeToast} />

@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="maskBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b82f6" />
+      <stop offset="50%" stop-color="#2563eb" />
+      <stop offset="100%" stop-color="#1d4ed8" />
+    </linearGradient>
+    <filter id="maskShadow" x="-10%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="12" stdDeviation="18" flood-color="#0f172a" flood-opacity="0.3" />
+    </filter>
+  </defs>
+
+  <!-- Full bleed background for Android maskable adaptive shape -->
+  <rect width="512" height="512" fill="url(#maskBg)" />
+
+  <!-- Safe Zone centered Package Icon (inside 80% circle) -->
+  <g transform="translate(136, 136) scale(0.8)" filter="url(#maskShadow)">
+    <!-- Top Face of Box -->
+    <path
+      d="M150 20 L270 90 L150 160 L30 90 Z"
+      fill="#ffffff"
+      fill-opacity="0.95"
+      stroke="#ffffff"
+      stroke-width="14"
+      stroke-linejoin="round"
+      stroke-linecap="round"
+    />
+    <!-- Left Face of Box -->
+    <path
+      d="M30 90 L150 160 L150 280 L30 210 Z"
+      fill="#cbd5e1"
+      stroke="#ffffff"
+      stroke-width="14"
+      stroke-linejoin="round"
+      stroke-linecap="round"
+    />
+    <!-- Right Face of Box -->
+    <path
+      d="M150 160 L270 90 L270 210 L150 280 Z"
+      fill="#94a3b8"
+      stroke="#ffffff"
+      stroke-width="14"
+      stroke-linejoin="round"
+      stroke-linecap="round"
+    />
+    <!-- Center Line -->
+    <line
+      x1="150"
+      y1="160"
+      x2="150"
+      y2="280"
+      stroke="#2563eb"
+      stroke-width="12"
+      stroke-linecap="round"
+    />
+    <!-- Top Flap Line -->
+    <path
+      d="M150 20 L150 160"
+      stroke="#2563eb"
+      stroke-width="12"
+      stroke-linecap="round"
+    />
+  </g>
+</svg>

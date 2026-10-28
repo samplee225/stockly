@@ -2,6 +2,7 @@ import React from 'react';
 import { Home, Package, ArrowLeftRight, Settings } from 'lucide-react';
 import { motion } from 'motion/react';
 import { ActivePage } from '../types/inventory';
+import { PWAInstallButton } from './PWAInstallButton';
 
 interface NavigationProps {
   activePage: ActivePage;
@@ -71,8 +72,9 @@ export const Navigation: React.FC<NavigationProps> = ({
             })}
           </nav>
 
-          {/* Header Action: Settings Navigation Button */}
+          {/* Header Action: Install PWA + Settings Navigation Button */}
           <div className="flex items-center gap-2">
+            <PWAInstallButton variant="header" />
             <button
               onClick={() => onNavigate('settings')}
               title="Settings"

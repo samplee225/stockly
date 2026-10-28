@@ -13,8 +13,10 @@ import {
   Info,
   ShieldCheck,
   Package,
+  Download,
 } from 'lucide-react';
 import { InventorySummary } from '../types/inventory';
+import { PWAInstallButton } from '../components/PWAInstallButton';
 
 interface SettingsPageProps {
   isDark: boolean;
@@ -263,6 +265,25 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({
             </span>
           </div>
         </div>
+      </section>
+
+      {/* App Installation (PWA) */}
+      <section className="glass-panel rounded-3xl p-5 sm:p-6 shadow-xl border border-black/[0.05] dark:border-white/[0.08] space-y-3">
+        <div className="flex items-center gap-2.5">
+          <div className="w-8 h-8 rounded-xl bg-blue-500/10 dark:bg-blue-500/20 text-blue-600 dark:text-blue-400 flex items-center justify-center">
+            <Download className="w-4 h-4" />
+          </div>
+          <div>
+            <h2 className="text-sm font-semibold text-slate-900 dark:text-white">
+              Install as Application
+            </h2>
+            <p className="text-xs text-slate-500 dark:text-neutral-400">
+              Run StockFlow on your desktop, iPhone, iPad, or Android home screen
+            </p>
+          </div>
+        </div>
+
+        <PWAInstallButton variant="settings" />
       </section>
 
       {/* Navigation & Mobile Gestures */}
