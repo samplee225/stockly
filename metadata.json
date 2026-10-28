@@ -1,0 +1,6 @@
+{
+  "name": "StockFlow — Minimal Inventory",
+  "description": "Mobile-first minimal stock inventory management web app with an Apple Liquid Glass UI, connected to Google Sheets & Apps Script.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
