@@ -46,6 +46,15 @@ export const ProductCard: React.FC<ProductCardProps> = ({
             </div>
           )}
 
+          {/* Category Badge Overlay */}
+          {product.category && (
+            <div className="absolute top-2.5 left-2.5">
+              <span className="px-2.5 py-1 rounded-xl text-[10px] font-semibold backdrop-blur-md shadow-md bg-black/60 text-white border border-white/20">
+                {product.category}
+              </span>
+            </div>
+          )}
+
           {/* Stock Badge Overlay */}
           <div className="absolute top-2.5 right-2.5">
             <span

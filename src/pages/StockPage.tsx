@@ -28,6 +28,7 @@ export const StockPage: React.FC<StockPageProps> = ({
   onRetry,
 }) => {
   const [searchQuery, setSearchQuery] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [viewMode, setViewMode] = useState<'grid' | 'list'>(() => {
     if (typeof window !== 'undefined') {
       const saved = localStorage.getItem('stockflow_view_mode');
@@ -43,11 +44,25 @@ export const StockPage: React.FC<StockPageProps> = ({
     }
   };
 
+  const categories = useMemo(() => {
+    const set = new Set<string>();
+    products.forEach((p) => {
+      if (p.category && p.category.trim()) {
+        set.add(p.category.trim());
+      }
+    });
+    return ['All', ...Array.from(set)];
+  }, [products]);
+
   const filteredProducts = useMemo(() => {
-    if (!searchQuery.trim()) return products;
+    let list = products;
+    if (selectedCategory !== 'All') {
+      list = list.filter((p) => (p.category || 'General').toLowerCase() === selectedCategory.toLowerCase());
+    }
+    if (!searchQuery.trim()) return list;
     const q = searchQuery.toLowerCase().trim();
-    return products.filter((p) => p.title.toLowerCase().includes(q));
-  }, [products, searchQuery]);
+    return list.filter((p) => p.title.toLowerCase().includes(q) || (p.category && p.category.toLowerCase().includes(q)));
+  }, [products, searchQuery, selectedCategory]);
 
   const itemCountText = `${products.length} ${products.length === 1 ? 'item' : 'items'}`;
 
@@ -130,6 +145,29 @@ export const StockPage: React.FC<StockPageProps> = ({
           </button>
         </div>
       </div>
+
+      {/* Category Filter Pills (rendered if categories exist) */}
+      {categories.length > 2 && (
+        <div className="flex items-center gap-1.5 overflow-x-auto pb-1 max-w-full scrollbar-none">
+          {categories.map((cat) => {
+            const isSelected = selectedCategory === cat;
+            return (
+              <button
+                key={cat}
+                type="button"
+                onClick={() => setSelectedCategory(cat)}
+                className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer shrink-0 border min-h-[32px] ${
+                  isSelected
+                    ? 'bg-blue-600 text-white border-blue-500 shadow-xs'
+                    : 'bg-black/[0.03] dark:bg-white/[0.04] text-slate-600 dark:text-neutral-300 border-black/[0.05] dark:border-white/[0.08] hover:bg-black/[0.06] dark:hover:bg-white/[0.08]'
+                }`}
+              >
+                {cat}
+              </button>
+            );
+          })}
+        </div>
+      )}
 
       {/* Loading state */}
       {loading && products.length === 0 && (

@@ -7,7 +7,6 @@ import {
   ExternalLink,
   CheckCircle2,
   AlertCircle,
-  Smartphone,
   Layers,
   Sparkles,
   Info,
@@ -286,29 +285,7 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({
         <PWAInstallButton variant="settings" />
       </section>
 
-      {/* Navigation & Mobile Gestures */}
-      <section className="glass-panel rounded-3xl p-5 sm:p-6 shadow-xl border border-black/[0.05] dark:border-white/[0.08] space-y-3">
-        <div className="flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-xl bg-sky-500/10 dark:bg-sky-500/20 text-sky-600 dark:text-sky-400 flex items-center justify-center">
-            <Smartphone className="w-4 h-4" />
-          </div>
-          <div>
-            <h2 className="text-sm font-semibold text-slate-900 dark:text-white">
-              Mobile Gestures
-            </h2>
-            <p className="text-xs text-slate-500 dark:text-neutral-400">
-              Fast swipe navigation enabled
-            </p>
-          </div>
-        </div>
 
-        <div className="p-3.5 rounded-2xl bg-black/[0.02] dark:bg-white/[0.03] border border-black/[0.04] dark:border-white/[0.06] text-xs text-slate-600 dark:text-neutral-300 flex items-center gap-3">
-          <Smartphone className="w-5 h-5 text-blue-500 shrink-0" />
-          <span>
-            Swipe <strong>Left</strong> or <strong>Right</strong> on mobile to smoothly shift between Home, Stock, and Activity History.
-          </span>
-        </div>
-      </section>
 
       {/* App Info Footer */}
       <div className="text-center pt-2 text-[11px] text-slate-400 dark:text-neutral-500">

@@ -24,13 +24,24 @@ test('validateProductInput rejects non-integer quantity', () => {
   assert.equal(result.field, 'quantity');
 });
 
-test('validateProductInput accepts valid product with 0 quantity', () => {
+test('validateProductInput accepts valid product with 0 quantity and category', () => {
   const result = validateProductInput({
     title: 'Silver Chain',
+    category: 'Accessories',
     quantity: 0,
     description: 'Fine sterling silver chain',
   });
   assert.equal(result.valid, true);
+});
+
+test('validateProductInput rejects category exceeding 60 characters', () => {
+  const result = validateProductInput({
+    title: 'Gold Ring',
+    category: 'A'.repeat(65),
+    quantity: 5,
+  });
+  assert.equal(result.valid, false);
+  assert.equal(result.field, 'category');
 });
 
 test('validateTransactionInput rejects missing productId', () => {

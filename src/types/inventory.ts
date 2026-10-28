@@ -8,6 +8,7 @@
 export interface Product {
   productId: string;
   title: string;
+  category?: string;
   quantity: number;
   imageUrl?: string;
   description?: string;
@@ -40,10 +41,22 @@ export interface ApiResponse<T> {
 
 export interface ProductFormData {
   title: string;
+  category?: string;
   quantity: number;
   imageUrl?: string;
   description?: string;
 }
+
+export const DEFAULT_CATEGORIES = [
+  'General',
+  'Electronics',
+  'Apparel',
+  'Accessories',
+  'Office',
+  'Food & Beverage',
+  'Health & Beauty',
+  'Tools & Hardware',
+] as const;
 
 export interface TransactionFormData {
   productId: string;

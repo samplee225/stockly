@@ -22,6 +22,10 @@ export function validateProductInput(data: Partial<ProductFormData>): Validation
     return { valid: false, field: 'title', error: 'Product title cannot exceed 120 characters.' };
   }
 
+  if (data.category && data.category.trim().length > 60) {
+    return { valid: false, field: 'category', error: 'Category name cannot exceed 60 characters.' };
+  }
+
   if (data.quantity === undefined || data.quantity === null || isNaN(Number(data.quantity))) {
     return { valid: false, field: 'quantity', error: 'Quantity must be a valid whole number.' };
   }

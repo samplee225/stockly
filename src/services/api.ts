@@ -17,6 +17,7 @@ const INITIAL_DEMO_PRODUCTS: Product[] = [
   {
     productId: 'prod-001',
     title: 'Classic Necklace',
+    category: 'Accessories',
     quantity: 25,
     imageUrl: 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=600&q=80',
     description: 'Traditional necklace design crafted in sterling silver with delicate chain.',
@@ -26,6 +27,7 @@ const INITIAL_DEMO_PRODUCTS: Product[] = [
   {
     productId: 'prod-002',
     title: 'Minimalist Gold Ring',
+    category: 'Accessories',
     quantity: 14,
     imageUrl: 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=600&q=80',
     description: '18K polished yellow gold band with subtle satin finish.',
@@ -35,6 +37,7 @@ const INITIAL_DEMO_PRODUCTS: Product[] = [
   {
     productId: 'prod-003',
     title: 'Ceramic Studio Mug',
+    category: 'General',
     quantity: 38,
     imageUrl: 'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=600&q=80',
     description: 'Hand-thrown stoneware mug with matte speckled glaze, 350ml.',
@@ -44,6 +47,7 @@ const INITIAL_DEMO_PRODUCTS: Product[] = [
   {
     productId: 'prod-004',
     title: 'Leather Cardholder',
+    category: 'Apparel',
     quantity: 9,
     imageUrl: 'https://images.unsplash.com/photo-1627123424574-724758594e93?auto=format&fit=crop&w=600&q=80',
     description: 'Vegetable-tanned saddle leather wallet with 4 quick-access card slots.',
@@ -303,6 +307,7 @@ export const inventoryApi = {
     const newProduct: Product = {
       productId: 'prod-' + Date.now().toString(36) + '-' + Math.random().toString(36).substring(2, 6),
       title: formData.title.trim(),
+      category: formData.category?.trim() || 'General',
       quantity: Number(formData.quantity),
       imageUrl: formData.imageUrl?.trim() || '',
       description: formData.description?.trim() || '',
@@ -359,6 +364,7 @@ export const inventoryApi = {
     const updated: Product = {
       ...current,
       title: formData.title !== undefined ? formData.title.trim() : current.title,
+      category: formData.category !== undefined ? formData.category.trim() : (current.category || 'General'),
       quantity: formData.quantity !== undefined ? Number(formData.quantity) : current.quantity,
       imageUrl: formData.imageUrl !== undefined ? formData.imageUrl.trim() : current.imageUrl,
       description: formData.description !== undefined ? formData.description.trim() : current.description,

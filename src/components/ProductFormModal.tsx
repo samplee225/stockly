@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Product, ProductFormData } from '../types/inventory';
+import { Product, ProductFormData, DEFAULT_CATEGORIES } from '../types/inventory';
 import { validateProductInput } from '../services/inventory-rules';
 import { processUploadedImage } from '../utils/image-helpers';
 import {
@@ -13,6 +13,7 @@ import {
   Plus,
   Minus,
   Check,
+  Tag,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
@@ -30,6 +31,7 @@ export const ProductFormModal: React.FC<ProductFormModalProps> = ({
   initialProduct,
 }) => {
   const [title, setTitle] = useState('');
+  const [category, setCategory] = useState('General');
   const [quantity, setQuantity] = useState<number | string>(0);
   const [imageUrl, setImageUrl] = useState('');
   const [description, setDescription] = useState('');
@@ -49,6 +51,7 @@ export const ProductFormModal: React.FC<ProductFormModalProps> = ({
   useEffect(() => {
     if (initialProduct) {
       setTitle(initialProduct.title);
+      setCategory(initialProduct.category || 'General');
       setQuantity(initialProduct.quantity);
       setImageUrl(initialProduct.imageUrl || '');
       setDescription(initialProduct.description || '');
@@ -62,6 +65,7 @@ export const ProductFormModal: React.FC<ProductFormModalProps> = ({
       }
     } else {
       setTitle('');
+      setCategory('General');
       setQuantity(0);
       setImageUrl('');
       setDescription('');
@@ -131,6 +135,7 @@ export const ProductFormModal: React.FC<ProductFormModalProps> = ({
     setSubmitError(null);
     const formData: ProductFormData = {
       title: title.trim(),
+      category: category.trim() || 'General',
       quantity: Number(quantity),
       imageUrl: imageUrl.trim() || undefined,
       description: description.trim() || undefined,
@@ -374,6 +379,55 @@ export const ProductFormModal: React.FC<ProductFormModalProps> = ({
                   <span>{errors.title}</span>
                 </p>
               )}
+            </div>
+
+            {/* Category Field */}
+            <div>
+              <div className="flex items-center justify-between mb-1.5">
+                <label
+                  htmlFor="product-category"
+                  className="block text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-neutral-300"
+                >
+                  Category
+                </label>
+                <span className="text-[11px] text-slate-400 dark:text-neutral-500">
+                  Select or type custom
+                </span>
+              </div>
+              <div className="relative">
+                <input
+                  id="product-category"
+                  type="text"
+                  maxLength={60}
+                  value={category}
+                  onChange={(e) => setCategory(e.target.value)}
+                  placeholder="e.g. Electronics, Apparel, Accessories..."
+                  className="w-full pl-9 pr-4 py-2.5 sm:py-3 rounded-2xl glass-input text-sm text-slate-900 dark:text-white border border-black/[0.08] dark:border-white/[0.12] placeholder:text-slate-400 dark:placeholder:text-neutral-500 focus:outline-hidden focus:ring-2 focus:ring-blue-500/20"
+                  disabled={submitting}
+                />
+                <Tag className="w-4 h-4 text-slate-400 dark:text-neutral-500 absolute left-3 top-3 sm:top-3.5" />
+              </div>
+
+              {/* Preset category pills */}
+              <div className="flex items-center gap-1.5 mt-2 overflow-x-auto pb-1 scrollbar-none">
+                {DEFAULT_CATEGORIES.map((cat) => {
+                  const isSelected = category.trim().toLowerCase() === cat.toLowerCase();
+                  return (
+                    <button
+                      key={cat}
+                      type="button"
+                      onClick={() => setCategory(cat)}
+                      className={`px-2.5 py-1 rounded-xl text-xs font-semibold transition-all cursor-pointer shrink-0 border ${
+                        isSelected
+                          ? 'bg-blue-600 text-white border-blue-500 shadow-xs'
+                          : 'bg-black/[0.03] dark:bg-white/[0.05] text-slate-600 dark:text-neutral-300 border-black/[0.06] dark:border-white/[0.08] hover:bg-black/[0.06] dark:hover:bg-white/10'
+                      }`}
+                    >
+                      {cat}
+                    </button>
+                  );
+                })}
+              </div>
             </div>
 
             {/* Quantity Stepper Field */}

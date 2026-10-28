@@ -179,12 +179,19 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
 
               {/* Title & Metadata */}
               <div className="flex-1 min-w-0 space-y-2">
-                <h1
-                  id="product-detail-title"
-                  className="text-xl sm:text-2xl font-bold tracking-tight text-slate-900 dark:text-white leading-snug break-words"
-                >
-                  {product.title}
-                </h1>
+                <div className="flex items-center gap-2 flex-wrap">
+                  <h1
+                    id="product-detail-title"
+                    className="text-xl sm:text-2xl font-bold tracking-tight text-slate-900 dark:text-white leading-snug break-words"
+                  >
+                    {product.title}
+                  </h1>
+                  {product.category && (
+                    <span className="text-xs font-semibold px-2.5 py-0.5 rounded-lg bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20">
+                      {product.category}
+                    </span>
+                  )}
+                </div>
 
                 {/* Large Quantity Display */}
                 <div className="flex items-baseline gap-2 pt-1">

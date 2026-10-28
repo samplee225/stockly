@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Product } from '../types/inventory';
-import { Package, ArrowDownRight, ArrowUpRight, Edit2, Trash2 } from 'lucide-react';
+import { Package, ArrowDownRight, ArrowUpRight, Edit2, Trash2, MoreVertical, Eye } from 'lucide-react';
 
 interface ProductListItemProps {
   product: Product;
@@ -18,6 +18,7 @@ export const ProductListItem: React.FC<ProductListItemProps> = ({
   onViewDetails,
 }) => {
   const [imgError, setImgError] = useState(false);
+  const [showMenu, setShowMenu] = useState(false);
 
   const isOutOfStock = product.quantity <= 0;
   const isLowStock = product.quantity > 0 && product.quantity < 5;
@@ -48,6 +49,11 @@ export const ProductListItem: React.FC<ProductListItemProps> = ({
             <h3 className="font-semibold text-xs sm:text-sm text-slate-900 dark:text-white truncate min-w-0 flex-1" title={product.title}>
               {product.title}
             </h3>
+            {product.category && (
+              <span className="shrink-0 text-[9px] sm:text-[10px] font-medium px-1.5 py-0.5 rounded-md bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20">
+                {product.category}
+              </span>
+            )}
             <span
               className={`shrink-0 text-[10px] sm:text-[11px] font-semibold px-2 py-0.5 rounded-lg border ${
                 isOutOfStock
@@ -67,10 +73,10 @@ export const ProductListItem: React.FC<ProductListItemProps> = ({
         </div>
       </div>
 
-      {/* Action Controls: Steppers + Edit/Delete */}
+      {/* Action Controls: Steppers + Three-Dot Dropdown */}
       <div
         onClick={(e) => e.stopPropagation()}
-        className="flex items-center gap-1 sm:gap-2 shrink-0"
+        className="flex items-center gap-1.5 sm:gap-2 shrink-0"
       >
         {/* Quick Stepper Buttons */}
         <div className="flex items-center gap-0.5 sm:gap-1 bg-black/[0.03] dark:bg-white/[0.04] p-0.5 sm:p-1 rounded-xl border border-black/[0.04] dark:border-white/[0.06]">
@@ -99,29 +105,84 @@ export const ProductListItem: React.FC<ProductListItemProps> = ({
           </button>
         </div>
 
-        {/* Edit & Delete Actions */}
-        <button
-          onClick={(e) => {
-            e.stopPropagation();
-            onEdit(product);
-          }}
-          className="w-7 h-7 sm:w-8 sm:h-8 rounded-xl flex items-center justify-center text-slate-400 dark:text-neutral-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-500/10 transition-colors cursor-pointer"
-          title="Edit"
-          aria-label={`Edit ${product.title}`}
-        >
-          <Edit2 className="w-3.5 h-3.5" />
-        </button>
-        <button
-          onClick={(e) => {
-            e.stopPropagation();
-            onDelete(product);
-          }}
-          className="w-7 h-7 sm:w-8 sm:h-8 rounded-xl flex items-center justify-center text-slate-400 dark:text-neutral-400 hover:text-rose-600 dark:hover:text-rose-400 hover:bg-rose-500/10 transition-colors cursor-pointer"
-          title="Delete"
-          aria-label={`Delete ${product.title}`}
-        >
-          <Trash2 className="w-3.5 h-3.5" />
-        </button>
+        {/* Three-Dot Dropdown Menu */}
+        <div className="relative">
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              setShowMenu(!showMenu);
+            }}
+            className={`w-7 h-7 sm:w-8 sm:h-8 rounded-xl flex items-center justify-center transition-colors cursor-pointer ${
+              showMenu
+                ? 'bg-blue-600 text-white shadow-xs'
+                : 'text-slate-400 dark:text-neutral-400 hover:text-slate-700 dark:hover:text-white hover:bg-black/[0.05] dark:hover:bg-white/[0.08]'
+            }`}
+            title="Options"
+            aria-label={`Options for ${product.title}`}
+            aria-haspopup="true"
+            aria-expanded={showMenu}
+          >
+            <MoreVertical className="w-4 h-4" />
+          </button>
+
+          {showMenu && (
+            <>
+              {/* Invisible backdrop to dismiss menu on outside click */}
+              <div
+                className="fixed inset-0 z-30"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setShowMenu(false);
+                }}
+              />
+              <div
+                className="absolute right-0 top-9 sm:top-10 z-40 w-40 glass-panel rounded-2xl shadow-2xl py-1 border border-black/[0.08] dark:border-white/[0.14] text-xs"
+                onClick={(e) => e.stopPropagation()}
+              >
+                {onViewDetails && (
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setShowMenu(false);
+                      onViewDetails(product);
+                    }}
+                    className="w-full flex items-center gap-2.5 px-3.5 py-2 text-slate-700 dark:text-neutral-200 hover:bg-black/[0.04] dark:hover:bg-white/[0.08] transition-colors cursor-pointer"
+                  >
+                    <Eye className="w-3.5 h-3.5 text-blue-500" />
+                    <span>View Details</span>
+                  </button>
+                )}
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setShowMenu(false);
+                    onEdit(product);
+                  }}
+                  className="w-full flex items-center gap-2.5 px-3.5 py-2 text-slate-700 dark:text-neutral-200 hover:bg-black/[0.04] dark:hover:bg-white/[0.08] transition-colors cursor-pointer"
+                >
+                  <Edit2 className="w-3.5 h-3.5 text-slate-500 dark:text-neutral-400" />
+                  <span>Edit Details</span>
+                </button>
+                <div className="my-1 border-t border-black/[0.05] dark:border-white/[0.08]" />
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setShowMenu(false);
+                    onDelete(product);
+                  }}
+                  className="w-full flex items-center gap-2.5 px-3.5 py-2 text-rose-600 dark:text-rose-400 hover:bg-rose-500/10 transition-colors cursor-pointer"
+                >
+                  <Trash2 className="w-3.5 h-3.5 text-rose-500" />
+                  <span>Delete Product</span>
+                </button>
+              </div>
+            </>
+          )}
+        </div>
       </div>
     </div>
   );
