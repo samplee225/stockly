@@ -221,51 +221,55 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
               </p>
             </div>
 
-            {/* Quick Actions Bar */}
+            {/* Quick Actions Bar - Icon Only */}
             <div className="space-y-1.5">
               <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 dark:text-neutral-400">
-                Manage Stock & Product
+                Quick Actions
               </span>
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                {/* Stock In Button */}
+              <div className="grid grid-cols-4 gap-2 sm:gap-2.5">
+                {/* Stock In Icon Button */}
                 <button
                   type="button"
                   onClick={() => onStockMovement('IN', product)}
-                  className="flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 active:scale-95 text-white text-xs font-semibold shadow-md shadow-emerald-500/20 transition-all cursor-pointer border border-emerald-400/30"
+                  title="Stock In (+)"
+                  aria-label="Stock In (+)"
+                  className="h-11 sm:h-12 rounded-2xl bg-emerald-600 hover:bg-emerald-500 active:scale-95 text-white flex items-center justify-center shadow-md shadow-emerald-500/20 transition-all cursor-pointer border border-emerald-400/30"
                 >
-                  <ArrowUpRight className="w-4 h-4 stroke-[2.2]" />
-                  <span>Stock In (+)</span>
+                  <ArrowUpRight className="w-5 h-5 stroke-[2.5]" />
                 </button>
 
-                {/* Stock Out Button */}
+                {/* Stock Out Icon Button */}
                 <button
                   type="button"
                   onClick={() => onStockMovement('OUT', product)}
                   disabled={product.quantity <= 0}
-                  className="flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-500 active:scale-95 text-white text-xs font-semibold shadow-md shadow-rose-500/20 disabled:opacity-40 disabled:pointer-events-none transition-all cursor-pointer border border-rose-400/30"
+                  title={product.quantity <= 0 ? 'Out of stock' : 'Stock Out (-)'}
+                  aria-label="Stock Out (-)"
+                  className="h-11 sm:h-12 rounded-2xl bg-rose-600 hover:bg-rose-500 active:scale-95 text-white flex items-center justify-center shadow-md shadow-rose-500/20 disabled:opacity-35 disabled:pointer-events-none transition-all cursor-pointer border border-rose-400/30"
                 >
-                  <ArrowDownRight className="w-4 h-4 stroke-[2.2]" />
-                  <span>Stock Out (-)</span>
+                  <ArrowDownRight className="w-5 h-5 stroke-[2.5]" />
                 </button>
 
-                {/* Edit Button */}
+                {/* Edit Details Icon Button */}
                 <button
                   type="button"
                   onClick={() => onEdit(product)}
-                  className="flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl bg-black/[0.04] dark:bg-white/[0.06] hover:bg-blue-500/15 hover:text-blue-600 dark:hover:text-blue-400 active:scale-95 text-slate-700 dark:text-neutral-200 text-xs font-semibold transition-all cursor-pointer border border-black/[0.06] dark:border-white/[0.08]"
+                  title="Edit Product Details"
+                  aria-label="Edit Product Details"
+                  className="h-11 sm:h-12 rounded-2xl bg-black/[0.04] dark:bg-white/[0.06] hover:bg-blue-600 hover:text-white dark:hover:bg-blue-600 active:scale-95 text-slate-700 dark:text-neutral-200 flex items-center justify-center transition-all cursor-pointer border border-black/[0.06] dark:border-white/[0.08]"
                 >
-                  <Edit2 className="w-3.5 h-3.5" />
-                  <span>Edit Details</span>
+                  <Edit2 className="w-4 h-4 stroke-[2.2]" />
                 </button>
 
-                {/* Delete Button */}
+                {/* Delete Icon Button */}
                 <button
                   type="button"
                   onClick={() => onDelete(product)}
-                  className="flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl bg-black/[0.04] dark:bg-white/[0.06] hover:bg-rose-500/15 hover:text-rose-600 dark:hover:text-rose-400 active:scale-95 text-rose-600 dark:text-rose-400 text-xs font-semibold transition-all cursor-pointer border border-black/[0.06] dark:border-white/[0.08]"
+                  title="Delete Product"
+                  aria-label="Delete Product"
+                  className="h-11 sm:h-12 rounded-2xl bg-black/[0.04] dark:bg-white/[0.06] hover:bg-rose-600 hover:text-white dark:hover:bg-rose-600 active:scale-95 text-rose-600 dark:text-rose-400 flex items-center justify-center transition-all cursor-pointer border border-black/[0.06] dark:border-white/[0.08]"
                 >
-                  <Trash2 className="w-3.5 h-3.5" />
-                  <span>Delete</span>
+                  <Trash2 className="w-4 h-4 stroke-[2.2]" />
                 </button>
               </div>
             </div>
